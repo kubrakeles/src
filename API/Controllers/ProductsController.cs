@@ -20,7 +20,7 @@ namespace API.Controllers
             _storeContext = storeContext;
         }
         [HttpGet]
-         public ActionResult<List<Product>> GetProducts()
+         public async Task< ActionResult<List<Product>>> GetProducts()
         {
             var data = _storeContext.Products.ToList();
             return data;
