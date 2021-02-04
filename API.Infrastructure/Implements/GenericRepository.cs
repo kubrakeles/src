@@ -39,6 +39,12 @@ namespace API.Infrastructure.Implements
         {
             return await ApplySpecification(spec).ToListAsync();
         }
+
+        public Task ListAsync()
+        {
+            throw new NotImplementedException();
+        }
+
         private IQueryable<T> ApplySpecification(ISpecification<T> spec)
         {
             return SpecificationEvalutor<T>.GetQuery(_storeContext.Set<T>().AsQueryable(), spec);
