@@ -11,7 +11,7 @@ namespace API.Infrastructure.DependencyResolvers.Autofac
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<ProductRepository>().As<IProductRepository>();
+            //builder.RegisterType<ProductRepository>().As<IProductRepository>();
             builder.RegisterGeneric(typeof(GenericRepository<>)).As(typeof(IGenericRepository<>)).InstancePerDependency();
         }
     }

@@ -9,39 +9,40 @@ using System.Threading.Tasks;
 
 namespace API.Infrastructure.Implements
 {
-    
+
     public class ProductRepository : IProductRepository
     {
-        private readonly StoreContext _storeContext;
-        public ProductRepository(StoreContext storeContext)
+        private readonly DemiralpContext _demiralpContext;
+        public ProductRepository(DemiralpContext demiralpContext)
         {
-            _storeContext = storeContext;
+            _demiralpContext = demiralpContext;
         }
 
-        public async Task<IReadOnlyList<ProductBrand>> GetProductBrandsAsync()
-        {
-            return await _storeContext.ProductBrands.ToListAsync();
-        }
+
+        //public async Task<IReadOnlyList<ProductBrand>> GetProductBrandsAsync()
+        //{
+        //    return await _demiralpContext.ProductBrands.ToListAsync();
+        //}
 
         public async Task<Product> GetProductByIdAsync(int id)
         {
-            return await _storeContext.Products
-                .Include(p=>p.ProductBrand)
-                .Include(p=>p.ProductType)
-                .FirstOrDefaultAsync(p=>p.Id==id);
+            return await _demiralpContext.Products
+                //.Include(p=>p.ProductBrand)
+                .Include(p => p.ProductType)
+                .FirstOrDefaultAsync(p => p.Id == id);
         }
 
         public async Task<IReadOnlyList<Product>> GetProductsAsync()
         {
-            return await _storeContext.Products
-                .Include(p=>p.ProductType.Id)
-                .Include(p=>p.ProductBrand.Id)
+            return await _demiralpContext.Products
+                .Include(p => p.ProductType.Id)
+                //  .Include(p=>p.ProductBrand.Id)
                 .ToListAsync();
         }
 
         public async Task<IReadOnlyList<ProductType>> GetProductTypesAsync()
         {
-            return await _storeContext.ProductTypes.ToListAsync();
+            return await _demiralpContext.ProductTypes.ToListAsync();
         }
     }
 }

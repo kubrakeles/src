@@ -1,4 +1,5 @@
 ﻿using API.Core.DbModels;
+using API.Core.Entities;
 using API.Core.Interfaces;
 using API.Core.Specifications;
 using API.Infrastructure.Data;
@@ -12,16 +13,23 @@ using System.Threading.Tasks;
 
 namespace API.Infrastructure.Implements
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
+    public class GenericRepository<T> : IGenericRepository<T>
+        where T : class,IEntity,new()
     {
-        private readonly StoreContext _storeContext;
-        public GenericRepository(StoreContext storeContext)
+        private readonly DemiralpContext _demiralpContext;
+        public GenericRepository(DemiralpContext demiralpContext)
         {
-            _storeContext = storeContext;
+            _demiralpContext = demiralpContext;
         }
+
+        public Task<T> Add(T Entity)
+        {
+           
+        }
+
         public async Task<T> GetByIdAsync(int id)
         {
-            return await _storeContext.Set<T>()
+            return await _demiralpContext.Set<T>()
                 .FindAsync(id);
         }
 
@@ -32,7 +40,7 @@ namespace API.Infrastructure.Implements
 
         public async Task<IReadOnlyList<T>> ListAllAsync()
         {
-            return await _storeContext.Set<T>().ToListAsync();
+            return await _demiralpContext.Set<T>().ToListAsync();
         }
 
         public async Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec)
@@ -45,9 +53,11 @@ namespace API.Infrastructure.Implements
             throw new NotImplementedException();
         }
 
+
         private IQueryable<T> ApplySpecification(ISpecification<T> spec)
         {
-            return SpecificationEvalutor<T>.GetQuery(_storeContext.Set<T>().AsQueryable(), spec);
+            return SpecificationEvalutor<T>.GetQuery(_demiralpContext.Set<T>().AsQueryable(), spec);
         }
+
     }
 }

@@ -5,10 +5,11 @@ using System.Text;
 
 namespace API.Core.DbModels
 {
-   public class ProductType:IEntity
+   public class MainSlider_Image:IEntity
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public ICollection<Product> Products { get; set; }
+        public string PictureUrl { get; set; }
+
+
     }
 }

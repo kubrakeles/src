@@ -22,7 +22,7 @@ namespace API
         {
 
             services.AddControllers().AddNewtonsoftJson(opt=>opt.SerializerSettings.ReferenceLoopHandling=Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-            services.AddDbContext<StoreContext>(
+            services.AddDbContext<DemiralpContext>(
             options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
            
         

@@ -43,7 +43,6 @@ namespace API.Controllers
         {
             var spec = new ProductsWithBrandAndTypeSpecification(id);
             var data = await _genericRepositoryProduct.GetEntityWithSpec(spec);
-
             return Ok(data);
 
         }
