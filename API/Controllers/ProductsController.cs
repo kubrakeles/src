@@ -17,15 +17,14 @@ namespace API.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly IGenericRepository<Product>  _genericRepositoryProduct;
-        private readonly IGenericRepository<ProductBrand> _genericRepositoryProductBrand;
         private readonly IGenericRepository<ProductType> _genericRepositoryProductType;
+    
         public ProductsController(IGenericRepository<Product> genericRepositoryProduct,
-            IGenericRepository<ProductBrand> genericRepositoryProductBrand, 
             IGenericRepository<ProductType> genericRepositoryProductType)
         {
             _genericRepositoryProduct = genericRepositoryProduct;
-            _genericRepositoryProductBrand = genericRepositoryProductBrand;
             _genericRepositoryProductType = genericRepositoryProductType;
+
         }
         /// <summary>
         /// Tüm Ürünleri Listeler
@@ -44,24 +43,14 @@ namespace API.Controllers
             var spec = new ProductsWithBrandAndTypeSpecification(id);
             var data = await _genericRepositoryProduct.GetEntityWithSpec(spec);
             return Ok(data);
-
         }
 
-        [HttpGet("brands")]
-        public async Task<ActionResult<ProductBrand>> ProductBrands()
-        {
-            var data = await _genericRepositoryProductBrand.ListAllAsync();
-
-            return Ok(data);
-
-        }
+      
         [HttpGet("types")]
         public async Task<ActionResult<ProductType>> ProductTypes()
         {
             var data = await _genericRepositoryProductType.ListAllAsync();
-
             return Ok(data);
-
         }
 
     }

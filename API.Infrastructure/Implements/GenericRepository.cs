@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace API.Infrastructure.Implements
 {
     public class GenericRepository<T> : IGenericRepository<T>
-        where T : class,IEntity,new()
+        where T : class, IEntity, new()
     {
         private readonly DemiralpContext _demiralpContext;
         public GenericRepository(DemiralpContext demiralpContext)
@@ -22,10 +22,17 @@ namespace API.Infrastructure.Implements
             _demiralpContext = demiralpContext;
         }
 
-        public Task<T> Add(T Entity)
-        {
-           
-        }
+        //public Task<T> Add(T Entity)
+        //{
+        //    using (var context = new DemiralpContext())
+        //    {
+        //        int a;
+        //        var addedEntity = context.Entry(Entity);
+        //        addedEntity.State = EntityState.Added;
+        //        a = context.SaveChanges();
+        //    }
+
+        //}
 
         public async Task<T> GetByIdAsync(int id)
         {
@@ -52,8 +59,6 @@ namespace API.Infrastructure.Implements
         {
             throw new NotImplementedException();
         }
-
-
         private IQueryable<T> ApplySpecification(ISpecification<T> spec)
         {
             return SpecificationEvalutor<T>.GetQuery(_demiralpContext.Set<T>().AsQueryable(), spec);

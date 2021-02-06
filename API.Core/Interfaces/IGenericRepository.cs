@@ -15,6 +15,7 @@ namespace API.Core.Interfaces
         Task<T> GetEntityWithSpec(ISpecification<T> spec);
         Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec);
         Task ListAsync();
-        Task<T> Add(T Entity);
+        
+        //Task<T> Add(T Entity);
     }
 }
