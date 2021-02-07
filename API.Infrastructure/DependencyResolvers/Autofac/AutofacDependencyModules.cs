@@ -13,6 +13,7 @@ namespace API.Infrastructure.DependencyResolvers.Autofac
         {
             //builder.RegisterType<ProductRepository>().As<IProductRepository>();
             builder.RegisterGeneric(typeof(GenericRepository<>)).As(typeof(IGenericRepository<>)).InstancePerDependency();
+
         }
     }
 }

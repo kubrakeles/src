@@ -25,6 +25,10 @@ namespace API.Infrastructure.DataContext
         public DbSet<MainNews> MainNews { get; set; }
         public DbSet<MainReference> MainReferences { get; set; }
         public DbSet<MainSlider_Image> MainSlider_Images { get; set; }
+        public DbSet<ProductImage> ProductImages { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
+        public DbSet <OperationClaim> OperationClaims { get; set; }
 
     }
 }
