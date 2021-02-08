@@ -15,7 +15,10 @@ namespace API.Core.Utilities.Security.Jwt
     public class JwtHelper : ITokenHelper
     {
         public IConfiguration _configuration { get; set; }
-        public TokenOptions _tokenOptions; //Konfigürasyon sayfasında token options bilgilerini bu nesneye dolduracağız.
+        /// <summary>
+        /// //Konfigürasyon sayfasında token options bilgilerini bu nesneye dolduracağız.
+        /// </summary>
+        public TokenOptions _tokenOptions;
         DateTime _accessTokenExpiration;
         public JwtHelper(IConfiguration configuration)
         {

@@ -1,4 +1,6 @@
 ﻿using API.Core.Interfaces;
+using API.Infrastructure.Business.Abstract;
+using API.Infrastructure.Business.Concrete;
 using API.Infrastructure.Implements;
 using Autofac;
 using System;
@@ -11,7 +13,7 @@ namespace API.Infrastructure.DependencyResolvers.Autofac
     {
         protected override void Load(ContainerBuilder builder)
         {
-            //builder.RegisterType<ProductRepository>().As<IProductRepository>();
+            builder.RegisterType<AuthManager>().As<IAuthService>();
             builder.RegisterGeneric(typeof(GenericRepository<>)).As(typeof(IGenericRepository<>)).InstancePerDependency();
 
         }
