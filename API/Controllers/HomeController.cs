@@ -1,5 +1,6 @@
 ﻿using API.Core.DbModels;
 using API.Core.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace API.Controllers
 {
+ 
     [Route("api/[controller]")]
     [ApiController]
     public class HomeController : ControllerBase
@@ -18,8 +20,6 @@ namespace API.Controllers
         private readonly IGenericRepository<MainCompany> _mainCompany;
         private readonly IGenericRepository<MainActivity> _mainActivity;
 
-
-
         public HomeController(IGenericRepository<MainReference> mainReference, IGenericRepository<MainNews> mainNews,
             IGenericRepository<MainCompany> mainCompany, IGenericRepository<MainActivity> mainActivity)
         {
@@ -28,7 +28,7 @@ namespace API.Controllers
             _mainNews = mainNews;
             _mainActivity = mainActivity;
         }
-
+        [Authorize]
         [HttpGet("news")]
         public async Task<ActionResult<MainNews>> MainNews()
         {

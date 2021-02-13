@@ -8,15 +8,16 @@ namespace API.Infrastructure.DataContext
 {
     public class DemiralpContext : DbContext
     {
-        public DemiralpContext()
-        {
-        }
 
-        public DemiralpContext(DbContextOptions options) : base(options)
+
+        public DemiralpContext(DbContextOptions<DemiralpContext> options) : base(options)
         {
 
         }
+        public DemiralpContext() : base()
+        {
 
+        }
         public DbSet<Product> Products { get; set; }
 
         public DbSet<ProductType> ProductTypes { get; set; }

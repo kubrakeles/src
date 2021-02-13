@@ -1,6 +1,7 @@
 ﻿using API.Core.DbModels;
 using API.Core.Entities;
 using API.Core.Specifications;
+using API.Core.Utilities.Result;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,7 +16,12 @@ namespace API.Core.Interfaces
         Task<T> GetEntityWithSpec(ISpecification<T> spec);
         Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec);
         Task ListAsync();
-        
+        IResult update(T Entity);
+        IResult delete(T  Entity);
+        IResult add(T Entity);
+       
+
+
         //Task<T> Add(T Entity);
     }
 }

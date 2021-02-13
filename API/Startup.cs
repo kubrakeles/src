@@ -26,10 +26,15 @@ namespace API
         {
 
             services.AddControllers().AddNewtonsoftJson(opt=>opt.SerializerSettings.ReferenceLoopHandling=Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: "AllowOrigin", configurePolicy: builder => builder.WithOrigins("http://127.0.0.1:5501")); //bu adrese izin ver
+            });
             services.AddDbContext<DemiralpContext>(
             options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             var tokenOptions = Configuration.GetSection(key: "TokenOptions").Get<TokenOptions>();
 
+          
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options => {
                     options.TokenValidationParameters = new TokenValidationParameters
@@ -56,10 +61,11 @@ namespace API
                 //app.UseSwagger();
                 //app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1"));
             }
-
+            app.UseCors(builder => builder.WithOrigins("http://127.0.0.1:5501").AllowAnyHeader());
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
             app.UseAuthentication();
 
             app.UseAuthorization();

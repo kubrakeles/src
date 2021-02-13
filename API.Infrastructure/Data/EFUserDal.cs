@@ -8,17 +8,34 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
+using API.Infrastructure.Business.Abstract;
 
 namespace API.Infrastructure.Data
 {
     public class EFUserDal : IUserRepository
     {
+        private readonly DemiralpContext _demiralpContext;
+        public EFUserDal(DemiralpContext demiralpContext)
+        {
+            _demiralpContext = demiralpContext;
+
+        }
         public User GetByMail(Expression<Func<User, bool>> filter)
         {
-            using (var context = new DemiralpContext())
-            {
+            var context = _demiralpContext;
+            
                 return context.Set<User>().SingleOrDefault(filter);
-            }
+            
+        }
+        public void Add(User user)
+        {
+            var context = _demiralpContext;
+            
+                var addedEntity = _demiralpContext.Entry(user);
+                addedEntity.State = EntityState.Added;
+                context.SaveChanges();
+            
         }
 
         public Task<User> GetByIdAsync(int id)
@@ -28,7 +45,7 @@ namespace API.Infrastructure.Data
 
         public List<OperationClaim> GetClaims(User user)
         {
-            using(var context=new DemiralpContext())
+            using(var context=_demiralpContext)
             {
                 var result = from OperationClaim in context.OperationClaims
                              join UserOperationClaim in context.UserOperationClaims
@@ -39,24 +56,6 @@ namespace API.Infrastructure.Data
             }
         }
 
-        public Task<User> GetEntityWithSpec(ISpecification<User> spec)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IReadOnlyList<User>> ListAllAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IReadOnlyList<User>> ListAsync(ISpecification<User> spec)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task ListAsync()
-        {
-            throw new NotImplementedException();
-        }
+   
     }
 }

@@ -10,7 +10,8 @@ namespace API.Infrastructure.Business.Abstract
 {
     public interface IAuthService
     {
-     
+        IDataResult<User> Register(UserForRegisterDto userForRegisterDto, string password);
+
         IDataResult<User> Login(UserForLoginDto userForLoginDto); //kullanıcı var mı kontorolü
 
         IResult UserExists(string email);//Kullanıcı daha önce kaydolmuşsa

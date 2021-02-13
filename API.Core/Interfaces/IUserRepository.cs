@@ -6,9 +6,10 @@ using System.Text;
 
 namespace API.Core.Interfaces
 {
-    public interface IUserRepository:IGenericRepository<User>
+    public interface IUserRepository
     {
         List<OperationClaim> GetClaims(User user);
+        void Add(User user);
         User GetByMail(Expression<Func<User, bool>> filter);
     }
 }

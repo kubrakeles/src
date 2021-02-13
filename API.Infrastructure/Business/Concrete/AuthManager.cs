@@ -42,8 +42,25 @@ namespace API.Infrastructure.Business.Concrete
             //buraya gelirse veriler doğru demek 
             return new SuccessDataResult<User>(userToCheck, Messages.SuccessfulLogin);
         }
+        public IDataResult<User> Register(UserForRegisterDto userForRegisterDto, string password)//Sisteme kayıt olma
+        {
+            byte[] passwordHash, passwordSalt;
 
-      
+            HashingHelper.CreatePasswordHash(password, out passwordHash, out passwordSalt);//Bu metod ile password hash ve password salt üretiliyor
+            var user = new User
+            {
+                Email = userForRegisterDto.Email,
+                FirstName = userForRegisterDto.FirstName,
+                LastName = userForRegisterDto.LastName,
+                PasswordHash = passwordHash,
+                PasswordSalt = passwordSalt,
+                Status = true//Bunu mail aldıktan sonra doğrulayarak true yapabiliriz.
+            };
+            _userService.Add(user);
+            return new SuccessDataResult<User>(user, Messages.UserRegistered);
+        }
+
+
 
         public IResult UserExists(string email)//Kullanıcı var mı kontrolü için
         {
