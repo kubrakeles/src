@@ -13,7 +13,7 @@ namespace API.Infrastructure.Business.Concrete
 {
     public class AuthManager : IAuthService
     {
-      IUserService _userService;
+         IUserService _userService;
         ITokenHelper _tokenHelper;
         public AuthManager(IUserService userService,ITokenHelper tokenHelper)
         {

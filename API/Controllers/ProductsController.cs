@@ -72,14 +72,24 @@ namespace API.Controllers
             return Ok(data);
         }
 
-        [HttpPost(template: "Images")]
+        [HttpPost(template: "Images"),DisableRequestSizeLimit]
         public ActionResult AddImages(ProductImage image)
         {
+            try
+            {
+                
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
             var result = _genericRepositoryImage.add(image);
             if (result.Success)
                 return Ok(result.Message);
             return BadRequest(result.Message);
         }
+
 
     }
 }
