@@ -35,7 +35,7 @@ namespace API.Controllers
                     string path = _webHostEnvironment.WebRootPath + "\\uploads\\";
                     _genericrepository.add(new ProductImage()
                     {
-                        productID = 2,
+                        productID = ProductId,
                         PictureUrl = path
                     });
                     if(!Directory.Exists(path))

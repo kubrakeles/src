@@ -16,7 +16,7 @@ namespace API.Core.DbModels
         public int ProductTypeId { get; set; }
         //[JsonIgnore]
         public ProductType ProductType { get; set; }
-        public string DatasheetPictureUrl { get; set; }
+      
         public List<ProductImage> Images { get; set; }
 
 

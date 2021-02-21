@@ -27,7 +27,7 @@ namespace API.Controllers
             return Ok(data);
         }
         [HttpPost(template: "AddInfo")]
-        public ActionResult AddNews(CompanyInfo company)
+        public ActionResult AddCompanyInfo(CompanyInfo company)
         {
             var result = _genericRepository.add(company);
             if (result.Success)
@@ -35,7 +35,7 @@ namespace API.Controllers
             return BadRequest(result.Message);
         }
         [HttpPost(template: "UpdateInfo")]
-        public ActionResult UpdateNews(CompanyInfo company)
+        public ActionResult UpdateCompanyInfo(CompanyInfo company)
         {
             var result = _genericRepository.update(company);
             if (result.Success)
@@ -43,7 +43,7 @@ namespace API.Controllers
             return BadRequest(result.Message);
         }
         [HttpPost(template: "DeleteInfo")]
-        public ActionResult Delete(CompanyInfo company)
+        public ActionResult DeleteCompanyInfo(CompanyInfo company)
         {
             var result = _genericRepository.delete(company);
             if (result.Success)
