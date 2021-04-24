@@ -43,34 +43,27 @@ namespace API.Infrastructure.Implements
             context.SaveChanges();
             return new SuccessResult(Messages.Deleted);
         }
-
-
         public async Task<T> GetByIdAsync(int id)
         {
             return await _demiralpContext.Set<T>()
                 .FindAsync(id);
         }
-
         public async Task<T> GetEntityWithSpec(ISpecification<T> spec)
         {
             return await ApplySpecification(spec).FirstOrDefaultAsync();
         }
-
         public async Task<IReadOnlyList<T>> ListAllAsync()
         {
             return await _demiralpContext.Set<T>().ToListAsync();
         }
-
         public async Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec)
         {
             return await ApplySpecification(spec).ToListAsync();
         }
-
         public Task ListAsync()
         {
             throw new NotImplementedException();
         }
-
         public IResult update(T entity)
         {
             var context = _demiralpContext;

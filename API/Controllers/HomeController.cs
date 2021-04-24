@@ -40,7 +40,14 @@ namespace API.Controllers
         [HttpGet("news")]
         public async Task<ActionResult<MainNews>> MainNews()
         {
-            var data = await _mainNews.ListAllAsync();
+             var data = await _mainNews.ListAllAsync();
+            return Ok(data);
+        }
+
+        [HttpGet("NewsById")]
+        public async Task<ActionResult<MainNews>> MainNewsById(int id)
+        {
+            var data = await _mainNews.GetByIdAsync(id);
             return Ok(data);
         }
         [HttpPost(template: "AddNews")]
@@ -53,7 +60,7 @@ namespace API.Controllers
         }
         [HttpPost(template: "UpdateNews")]
         public ActionResult UpdateNews(MainNews news)
-        {
+        { 
             var result = _mainNews.update(news);
             if (result.Success)
                 return Ok(result.Message);
@@ -77,6 +84,12 @@ namespace API.Controllers
         public async Task<ActionResult<MainReference>> MainReference()
         {
             var data = await _mainReference.ListAllAsync();
+            return Ok(data);
+        }
+        [HttpGet("ReferenceById")]
+        public async Task<ActionResult<MainNews>> MainReferenceById(int id)
+        {
+            var data = await _mainReference.GetByIdAsync(id);
             return Ok(data);
         }
         [HttpPost(template: "AddReference")]
