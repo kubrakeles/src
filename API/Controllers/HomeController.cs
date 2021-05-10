@@ -1,10 +1,12 @@
 ﻿using API.Core.DbModels;
 using API.Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -21,16 +23,19 @@ namespace API.Controllers
         private readonly IGenericRepository<MainCompany> _mainCompany;
         private readonly IGenericRepository<MainActivity> _mainActivity;
         private readonly IGenericRepository<MainSlider_Image> _mainSlider;
+        public static IWebHostEnvironment _webHostEnvironment;
+
 
         public HomeController(IGenericRepository<MainReference> mainReference, IGenericRepository<MainNews> mainNews,
             IGenericRepository<MainCompany> mainCompany, IGenericRepository<MainActivity> mainActivity,
-            IGenericRepository<MainSlider_Image> mainSlider)
+            IGenericRepository<MainSlider_Image> mainSlider, IWebHostEnvironment webHostEnvironment)
         {
             _mainReference = mainReference;
             _mainCompany = mainCompany;
             _mainNews = mainNews;
             _mainActivity = mainActivity;
             _mainSlider = mainSlider;
+            _webHostEnvironment = webHostEnvironment;
         }
         /// <summary>
         /// news get,add,update,delete
@@ -197,5 +202,43 @@ namespace API.Controllers
 
 
         }
+        [HttpPost(template:"AddSliderImage")]
+        public string Post([FromForm] IFormFile formFile)
+        {
+            try
+            {
+                if (formFile.Length > 0)
+                {
+                    string path = _webHostEnvironment.WebRootPath + "\\SliderUploads\\";
+                    _mainSlider.add(new MainSlider_Image()
+                    {
+                         
+                        PictureUrl = path+formFile.FileName
+                    });
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+                    using (FileStream fileStream = System.IO.File.Create(path + formFile.FileName))
+                    {
+                        formFile.CopyTo(fileStream);
+                        fileStream.Flush();
+                        return "Uploaded";
+                    }
+                }
+                else
+                {
+                    return "Yüklenmedi";
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return ex.Message;
+            }
+        }
+
+
+
     }
 }
