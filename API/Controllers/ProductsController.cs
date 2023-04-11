@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("api/[controller]")]
    
@@ -21,7 +21,6 @@ namespace API.Controllers
         private readonly IGenericRepository<Product>  _genericRepositoryProduct;
         private readonly IGenericRepository<ProductImage> _genericRepositoryImage;
         private readonly IGenericRepository<ProductType> _genericRepositoryProductType;
-    
         public ProductsController(IGenericRepository<Product> genericRepositoryProduct,
             IGenericRepository<ProductType> genericRepositoryProductType,IGenericRepository<ProductImage> genericImage)
         {

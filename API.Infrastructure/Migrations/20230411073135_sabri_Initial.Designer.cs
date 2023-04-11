@@ -4,14 +4,16 @@ using API.Infrastructure.DataContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace API.Infrastructure.Migrations
 {
     [DbContext(typeof(DemiralpContext))]
-    partial class DemiralpContextModelSnapshot : ModelSnapshot
+    [Migration("20230411073135_sabri_Initial")]
+    partial class sabri_Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,27 +43,6 @@ namespace API.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("CompanyInfos");
-                });
-
-            modelBuilder.Entity("API.Core.DbModels.CreatedDate", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<int>("day")
-                        .HasColumnType("int");
-
-                    b.Property<int>("month")
-                        .HasColumnType("int");
-
-                    b.Property<int>("year")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CreatedDate");
                 });
 
             modelBuilder.Entity("API.Core.DbModels.MainActivity", b =>
@@ -161,9 +142,6 @@ namespace API.Infrastructure.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int>("CreatedId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -174,9 +152,6 @@ namespace API.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CreatedId")
-                        .IsUnique();
 
                     b.HasIndex("ProductTypeId");
 
@@ -268,19 +243,11 @@ namespace API.Infrastructure.Migrations
 
             modelBuilder.Entity("API.Core.DbModels.Product", b =>
                 {
-                    b.HasOne("API.Core.DbModels.CreatedDate", "Created")
-                        .WithOne("Product")
-                        .HasForeignKey("API.Core.DbModels.Product", "CreatedId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("API.Core.DbModels.ProductType", "ProductType")
                         .WithMany("Products")
                         .HasForeignKey("ProductTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Created");
 
                     b.Navigation("ProductType");
                 });
@@ -294,11 +261,6 @@ namespace API.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("product");
-                });
-
-            modelBuilder.Entity("API.Core.DbModels.CreatedDate", b =>
-                {
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("API.Core.DbModels.Product", b =>

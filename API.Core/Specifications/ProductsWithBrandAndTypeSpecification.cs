@@ -10,15 +10,17 @@ namespace API.Core.Specifications
     {
         public ProductsWithBrandAndTypeSpecification()
         {
-            
-            AddInclude(y => y.ProductType);
+            AddInclude(y => y.Created);
         }
         public ProductsWithBrandAndTypeSpecification(int id)
             :base(x=>x.Id==id)
         {
-          
-            AddInclude(x => x.ProductType);
+            AddInclude(x => x.Created);
         }
+
+        
+        
+
 
 
     }

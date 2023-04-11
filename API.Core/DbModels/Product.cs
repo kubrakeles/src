@@ -14,12 +14,12 @@ namespace API.Core.DbModels
         public string Description { get; set; }
 
         public int ProductTypeId { get; set; }
+        public int CreatedId { get; set; }
         //[JsonIgnore]
         public ProductType ProductType { get; set; }
       
         public List<ProductImage> Images { get; set; }
-
-
-
+        public CreatedDate Created { get; set; }
+   
     }
 }
