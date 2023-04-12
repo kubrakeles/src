@@ -33,21 +33,46 @@ namespace API.Controllers
         /// Tüm Ürünleri Listeler
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
-         public async Task<ActionResult<List<Product>>> GetProducts()
+        [HttpGet("productswithcreated")]
+        public async Task<ActionResult<List<Product>>> GetProducts()
         {
             var spec = new ProductsWithBrandAndTypeSpecification();
             var data = await _genericRepositoryProduct.ListAsync(spec);
             return Ok(data);
         }
-        [HttpGet("{id}")]
+
+        [HttpGet("productswithcreated/{id}")]
         public async Task<ActionResult<Product>> ProductSingle(int id)
         {
             var spec = new ProductsWithBrandAndTypeSpecification(id);
             var data = await _genericRepositoryProduct.GetEntityWithSpec(spec);
             return Ok(data);
         }
+
+        [HttpGet("productswithimage")]
+
+        public async Task<IActionResult> ProductsWithImage()
+        {
+            var spec = new ProductsWithImage();
+            var data = await _genericRepositoryProduct.ListAsync(spec);
+            return Ok(data);
+
+        }
+        [HttpGet("productswithimage/{id}")]
+        public async Task<IActionResult> ProductWithImage(int id)
+        {
+            var spec = new ProductsWithImage(id);
+            var data = await _genericRepositoryProduct.GetEntityWithSpec(spec);
+            return Ok(data);
+        }
+
+
+
+
+
+
         [HttpPost(template: "Add")]
+
         public ActionResult AddProduct(Product product)
         {
             var result = _genericRepositoryProduct.add(product);
